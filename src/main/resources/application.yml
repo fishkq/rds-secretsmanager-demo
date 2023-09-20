@@ -1,0 +1,45 @@
+spring:
+  # spring database begin
+#  datasource:
+#    url: jdbc-secretsmanager:mysql://[url]:[port]
+#    username: [secretId]
+#    driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerMySQLDriver
+  # spring database end
+  # mybatis database begin
+  datasource:
+    dynamic:
+      primary: db1
+      strict: false
+      datasource:
+        db1:
+          url: jdbc-secretsmanager:mysql://[url]:[port]
+          username: [secretId]
+          driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerMySQLDriver
+        db2:
+          url: jdbc-secretsmanager:mysql://[url]:[port]
+          username: [secretId]
+          driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerMySQLDriver
+        db3:
+          url: jdbc-secretsmanager:mysql://[url]:[port]
+          username: [secretId]
+          driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerMySQLDriver
+  # mybatis database end
+
+mybatis:
+  mapper-locations: classpath*:mappers/**/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+mybatis-plus:
+  mapper-locations: classpath*:mappers/**/*.xml
+  check-config-location: true
+  default-executor-type: REUSE
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    id-type: 0
+server:
+  port: 8000
